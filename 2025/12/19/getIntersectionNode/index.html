@@ -1,0 +1,297 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>160.相交链表 | 平生一顾's Holy Load</title><meta name="author" content="C9"><meta name="copyright" content="C9"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="🌿这是一个较为简单的链表题目，仅仅要注意判断链表都为空的情况。但看见评论区，才发现码农们充满浪漫的诗意如果你们喜欢彼此，请携手一起走完剩下的旅程（将下面这个 while 块取消注释）。一路上，时而你踩着她的影子，时而她踩着你的影子。渐渐地，你变成了她,她也变成了你。  12345678910111213141516171819202122&#x2F;&#x2F; Definition for singly-l">
+<meta property="og:type" content="article">
+<meta property="og:title" content="160.相交链表">
+<meta property="og:url" content="http://c9888.github.io/2025/12/19/getIntersectionNode/index.html">
+<meta property="og:site_name" content="平生一顾&#39;s Holy Load">
+<meta property="og:description" content="🌿这是一个较为简单的链表题目，仅仅要注意判断链表都为空的情况。但看见评论区，才发现码农们充满浪漫的诗意如果你们喜欢彼此，请携手一起走完剩下的旅程（将下面这个 while 块取消注释）。一路上，时而你踩着她的影子，时而她踩着你的影子。渐渐地，你变成了她,她也变成了你。  12345678910111213141516171819202122&#x2F;&#x2F; Definition for singly-l">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://t.alcy.cc/fj?id=8">
+<meta property="article:published_time" content="2025-12-19T02:11:12.000Z">
+<meta property="article:modified_time" content="2026-02-28T16:44:16.762Z">
+<meta property="article:author" content="C9">
+<meta property="article:tag" content="笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://t.alcy.cc/fj?id=8"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "160.相交链表",
+  "url": "http://c9888.github.io/2025/12/19/getIntersectionNode/",
+  "image": "https://t.alcy.cc/fj?id=8",
+  "datePublished": "2025-12-19T02:11:12.000Z",
+  "dateModified": "2026-02-28T16:44:16.762Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "C9",
+      "url": "http://c9888.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://c9888.github.io/2025/12/19/getIntersectionNode/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":true,"top_n_per_article":1,"unescape":true,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '160.相交链表',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/background.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/touxiang.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">6</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-studiovinari"></i><span> 学习</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://t.alcy.cc/fj?id=8);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">平生一顾's Holy Load</span></a><a class="nav-page-title" href="/"><span class="site-name">160.相交链表</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-studiovinari"></i><span> 学习</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">160.相交链表</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-12-19T02:11:12.000Z" title="发表于 2025-12-19 10:11:12">2025-12-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-02-28T16:44:16.762Z" title="更新于 2026-03-01 00:44:16">2026-03-01</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2025/12/19/getIntersectionNode/#post-comment"><span class="gitalk-comment-count"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><img src="../../../../img/相交链表.jpg"/>
+
+
+<h2 id="🌿这是一个较为简单的链表题目，仅仅要注意判断链表都为空的情况。但看见评论区，才发现码农们充满浪漫的诗意"><a href="#🌿这是一个较为简单的链表题目，仅仅要注意判断链表都为空的情况。但看见评论区，才发现码农们充满浪漫的诗意" class="headerlink" title="🌿这是一个较为简单的链表题目，仅仅要注意判断链表都为空的情况。但看见评论区，才发现码农们充满浪漫的诗意"></a>🌿这是一个较为简单的链表题目，仅仅要注意判断链表都为空的情况。但看见评论区，才发现码农们充满浪漫的诗意</h2><p>如果你们喜欢彼此，请携手一起走完剩下的旅程（将下面这个 while 块取消注释）。一路上，时而你踩着她的影子，时而她踩着你的影子。渐渐地，你变成了她,她也变成了你。</p>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// Definition for singly-linked list.</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">ListNode</span> &#123;</span><br><span class="line">    <span class="type">int</span> val;</span><br><span class="line">    ListNode *next;</span><br><span class="line">    <span class="built_in">ListNode</span>(<span class="type">int</span> x) : <span class="built_in">val</span>(x), <span class="built_in">next</span>(<span class="literal">NULL</span>) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode *<span class="title">getIntersectionNode</span><span class="params">(ListNode *headA, ListNode *headB)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (headA == <span class="literal">nullptr</span> || headB == <span class="literal">nullptr</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode *pA = headA, *pB = headB;</span><br><span class="line">        <span class="keyword">while</span> (pA != pB) &#123;</span><br><span class="line">            pA = pA == <span class="literal">nullptr</span> ? headB : pA-&gt;next;</span><br><span class="line">            pB = pB == <span class="literal">nullptr</span> ? headA : pB-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pA;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这种方法的时间复杂度是O（m+n），空间复杂度为O（1）</p>
+
+<h2 id="🌿另一种就是使用哈希表，这种方法需要额外的空间，空间复杂度就是O（m），其中-m-是链表-headA-的长度。需要使用哈希集合存储链表-headA-中的全部节点"><a href="#🌿另一种就是使用哈希表，这种方法需要额外的空间，空间复杂度就是O（m），其中-m-是链表-headA-的长度。需要使用哈希集合存储链表-headA-中的全部节点" class="headerlink" title="🌿另一种就是使用哈希表，这种方法需要额外的空间，空间复杂度就是O（m），其中 m 是链表 headA 的长度。需要使用哈希集合存储链表 headA 中的全部节点"></a>🌿另一种就是使用哈希表，这种方法需要额外的空间，空间复杂度就是O（m），其中 m 是链表 headA 的长度。需要使用哈希集合存储链表 headA 中的全部节点</h2><h3 id="unordered-set-是-C-标准库中的一个容器，属于-头文件。unordered-set-是一种-哈希表-容器，它存储的是-不重复-的元素，并且基于哈希表实现。元素的存储顺序是不固定的，即它不保持插入顺序，因此叫做-“unordered”（无序的）集合。与-set-不同，unordered-set-是通过哈希算法来快速查找和插入元素，因此查找操作的平均时间复杂度为-O-1-（常数时间），比-set-更高效，尤其是在数据量大的时候。"><a href="#unordered-set-是-C-标准库中的一个容器，属于-头文件。unordered-set-是一种-哈希表-容器，它存储的是-不重复-的元素，并且基于哈希表实现。元素的存储顺序是不固定的，即它不保持插入顺序，因此叫做-“unordered”（无序的）集合。与-set-不同，unordered-set-是通过哈希算法来快速查找和插入元素，因此查找操作的平均时间复杂度为-O-1-（常数时间），比-set-更高效，尤其是在数据量大的时候。" class="headerlink" title="unordered_set 是 C++ 标准库中的一个容器，属于  头文件。unordered_set 是一种 哈希表 容器，它存储的是 不重复 的元素，并且基于哈希表实现。元素的存储顺序是不固定的，即它不保持插入顺序，因此叫做 “unordered”（无序的）集合。与 set 不同，unordered_set 是通过哈希算法来快速查找和插入元素，因此查找操作的平均时间复杂度为 O(1)（常数时间），比 set 更高效，尤其是在数据量大的时候。"></a>unordered_set 是 C++ 标准库中的一个容器，属于 <unordered_set> 头文件。unordered_set 是一种 哈希表 容器，它存储的是 不重复 的元素，并且基于哈希表实现。元素的存储顺序是不固定的，即它不保持插入顺序，因此叫做 “unordered”（无序的）集合。与 set 不同，unordered_set 是通过哈希算法来快速查找和插入元素，因此查找操作的平均时间复杂度为 O(1)（常数时间），比 set 更高效，尤其是在数据量大的时候。</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Definition for singly-linked list.</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">ListNode</span> &#123;</span><br><span class="line">    <span class="type">int</span> val;</span><br><span class="line">    ListNode *next;</span><br><span class="line">    <span class="built_in">ListNode</span>(<span class="type">int</span> x) : <span class="built_in">val</span>(x), <span class="built_in">next</span>(<span class="literal">NULL</span>) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode *<span class="title">getIntersectionNode</span><span class="params">(ListNode *headA, ListNode *headB)</span> </span>&#123;<span class="comment">//通过哈希表来追踪headA的所有结点，并在遍历第二个链表时查找是否有相同的节点。</span></span><br><span class="line">        unordered_set&lt;ListNode *&gt;visited;<span class="comment">// 创建一个哈希集合，用于存储链表A的节点</span></span><br><span class="line">        ListNode *temp = headA;  <span class="comment">// temp 用于遍历链表A</span></span><br><span class="line">        <span class="keyword">while</span>(temp!=<span class="literal">nullptr</span>)&#123;</span><br><span class="line">            visited.<span class="built_in">insert</span>(temp); <span class="comment">// 将链表A中的每个节点地址加入集合</span></span><br><span class="line">            temp=temp-&gt;next;<span class="comment">// 移动到下一个节点</span></span><br><span class="line">        &#125;</span><br><span class="line">        temp=headB;</span><br><span class="line">        <span class="keyword">while</span>(temp!=<span class="literal">nullptr</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(visited.<span class="built_in">count</span>(temp))&#123;</span><br><span class="line">                <span class="keyword">return</span> temp;<span class="comment">//如果链表B中存在相同结点返回相同结点temp</span></span><br><span class="line">            &#125;</span><br><span class="line">            temp=temp-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">            &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://C9888.github.io">C9</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://c9888.github.io/2025/12/19/getIntersectionNode/">http://c9888.github.io/2025/12/19/getIntersectionNode/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://C9888.github.io" target="_blank">平生一顾's Holy Load</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a></div><div class="post-share"><div class="social-share" data-image="https://t.alcy.cc/fj?id=8" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/11/20/gitpush/" title="github中一些push方法学习"><img class="cover" src="https://t.alcy.cc/fj?id=5" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">github中一些push方法学习</div></div><div class="info-2"><div class="info-item-1">GitHub上传与分支管理指南 本指南整理了GitHub代码上传和分支管理的常用命令，供学习参考  🚀 项目初始化与上传流程1. 准备工作 在GitHub上创建新仓库 找到要上传的项目所在文件夹  2. 初始化本地仓库1git init  # 初始化Git仓库  3. 添加文件到暂存区123git add *  # 添加文件夹里的所有文件git add .  # 另一种添加所有文件的方式git add 文件名  # 添加特定文件  4. 提交更改到本地仓库1git commit -m &quot;提交信息&quot;  # 提交并添加提交说明  5. 连接远程仓库1git remote add origin https://github.com/username/repository.git  # 添加远程仓库  6. 推送到远程仓库12git push -u origin master  # 推送到远程master分支(首次推送使用-u)git push origin master    # 后续推送  🌿 分支管理命令查看分支1git branch  #...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/11/20/gitpush/" title="github中一些push方法学习"><img class="cover" src="https://t.alcy.cc/fj?id=5" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-20</div><div class="info-item-2">github中一些push方法学习</div></div><div class="info-2"><div class="info-item-1">GitHub上传与分支管理指南 本指南整理了GitHub代码上传和分支管理的常用命令，供学习参考  🚀 项目初始化与上传流程1. 准备工作 在GitHub上创建新仓库 找到要上传的项目所在文件夹  2. 初始化本地仓库1git init  # 初始化Git仓库  3. 添加文件到暂存区123git add *  # 添加文件夹里的所有文件git add .  # 另一种添加所有文件的方式git add 文件名  # 添加特定文件  4. 提交更改到本地仓库1git commit -m &quot;提交信息&quot;  # 提交并添加提交说明  5. 连接远程仓库1git remote add origin https://github.com/username/repository.git  # 添加远程仓库  6. 推送到远程仓库12git push -u origin master  # 推送到远程master分支(首次推送使用-u)git push origin master    # 后续推送  🌿 分支管理命令查看分支1git branch  #...</div></div></div></a><a class="pagination-related" href="/2025/05/29/qq_img/" title="6行代码实现输入qq号获取qq头像"><img class="cover" src="https://t.alcy.cc/fj?id=3" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-29</div><div class="info-item-2">6行代码实现输入qq号获取qq头像</div></div><div class="info-2"><div class="info-item-1"> 获取头像      button1.onclick = function () {   img1.src = "http://q1.qlogo.cn/g?b=qq&nk=" + qq.value + "&s=640"; //&s是尺寸  有40 100 140 640 };     经常需要用到 QQ 头像，做个小笔记  123&lt;input type=&quot;number&quot; id=&quot;qq&quot; /&gt;&lt;button id=&quot;button1&quot;&gt;获取头像&lt;/button&gt;&lt;img id=&quot;img1&quot; src=&quot;&quot; /&gt;  123button1.onclick = function () &#123;  img1.src = &quot;http://q1.qlogo.cn/g?b=qq&amp;nk=&quot; + qq.value + &quot;&amp;s=640&quot;; //&amp;s是尺寸  有40 100 140...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/touxiang.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">C9</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">6</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/C9888"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/C9888" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:jiahaoji358@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">主包正在努力学习中！！！<br> wx：JJH040524<br>qq：2014309847 <br> Tiktok：47423700708</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8C%BF%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA%E8%BE%83%E4%B8%BA%E7%AE%80%E5%8D%95%E7%9A%84%E9%93%BE%E8%A1%A8%E9%A2%98%E7%9B%AE%EF%BC%8C%E4%BB%85%E4%BB%85%E8%A6%81%E6%B3%A8%E6%84%8F%E5%88%A4%E6%96%AD%E9%93%BE%E8%A1%A8%E9%83%BD%E4%B8%BA%E7%A9%BA%E7%9A%84%E6%83%85%E5%86%B5%E3%80%82%E4%BD%86%E7%9C%8B%E8%A7%81%E8%AF%84%E8%AE%BA%E5%8C%BA%EF%BC%8C%E6%89%8D%E5%8F%91%E7%8E%B0%E7%A0%81%E5%86%9C%E4%BB%AC%E5%85%85%E6%BB%A1%E6%B5%AA%E6%BC%AB%E7%9A%84%E8%AF%97%E6%84%8F"><span class="toc-number">1.</span> <span class="toc-text">🌿这是一个较为简单的链表题目，仅仅要注意判断链表都为空的情况。但看见评论区，才发现码农们充满浪漫的诗意</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8C%BF%E5%8F%A6%E4%B8%80%E7%A7%8D%E5%B0%B1%E6%98%AF%E4%BD%BF%E7%94%A8%E5%93%88%E5%B8%8C%E8%A1%A8%EF%BC%8C%E8%BF%99%E7%A7%8D%E6%96%B9%E6%B3%95%E9%9C%80%E8%A6%81%E9%A2%9D%E5%A4%96%E7%9A%84%E7%A9%BA%E9%97%B4%EF%BC%8C%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%B0%B1%E6%98%AFO%EF%BC%88m%EF%BC%89%EF%BC%8C%E5%85%B6%E4%B8%AD-m-%E6%98%AF%E9%93%BE%E8%A1%A8-headA-%E7%9A%84%E9%95%BF%E5%BA%A6%E3%80%82%E9%9C%80%E8%A6%81%E4%BD%BF%E7%94%A8%E5%93%88%E5%B8%8C%E9%9B%86%E5%90%88%E5%AD%98%E5%82%A8%E9%93%BE%E8%A1%A8-headA-%E4%B8%AD%E7%9A%84%E5%85%A8%E9%83%A8%E8%8A%82%E7%82%B9"><span class="toc-number">2.</span> <span class="toc-text">🌿另一种就是使用哈希表，这种方法需要额外的空间，空间复杂度就是O（m），其中 m 是链表 headA 的长度。需要使用哈希集合存储链表 headA 中的全部节点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#unordered-set-%E6%98%AF-C-%E6%A0%87%E5%87%86%E5%BA%93%E4%B8%AD%E7%9A%84%E4%B8%80%E4%B8%AA%E5%AE%B9%E5%99%A8%EF%BC%8C%E5%B1%9E%E4%BA%8E-%E5%A4%B4%E6%96%87%E4%BB%B6%E3%80%82unordered-set-%E6%98%AF%E4%B8%80%E7%A7%8D-%E5%93%88%E5%B8%8C%E8%A1%A8-%E5%AE%B9%E5%99%A8%EF%BC%8C%E5%AE%83%E5%AD%98%E5%82%A8%E7%9A%84%E6%98%AF-%E4%B8%8D%E9%87%8D%E5%A4%8D-%E7%9A%84%E5%85%83%E7%B4%A0%EF%BC%8C%E5%B9%B6%E4%B8%94%E5%9F%BA%E4%BA%8E%E5%93%88%E5%B8%8C%E8%A1%A8%E5%AE%9E%E7%8E%B0%E3%80%82%E5%85%83%E7%B4%A0%E7%9A%84%E5%AD%98%E5%82%A8%E9%A1%BA%E5%BA%8F%E6%98%AF%E4%B8%8D%E5%9B%BA%E5%AE%9A%E7%9A%84%EF%BC%8C%E5%8D%B3%E5%AE%83%E4%B8%8D%E4%BF%9D%E6%8C%81%E6%8F%92%E5%85%A5%E9%A1%BA%E5%BA%8F%EF%BC%8C%E5%9B%A0%E6%AD%A4%E5%8F%AB%E5%81%9A-%E2%80%9Cunordered%E2%80%9D%EF%BC%88%E6%97%A0%E5%BA%8F%E7%9A%84%EF%BC%89%E9%9B%86%E5%90%88%E3%80%82%E4%B8%8E-set-%E4%B8%8D%E5%90%8C%EF%BC%8Cunordered-set-%E6%98%AF%E9%80%9A%E8%BF%87%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%E6%9D%A5%E5%BF%AB%E9%80%9F%E6%9F%A5%E6%89%BE%E5%92%8C%E6%8F%92%E5%85%A5%E5%85%83%E7%B4%A0%EF%BC%8C%E5%9B%A0%E6%AD%A4%E6%9F%A5%E6%89%BE%E6%93%8D%E4%BD%9C%E7%9A%84%E5%B9%B3%E5%9D%87%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E4%B8%BA-O-1-%EF%BC%88%E5%B8%B8%E6%95%B0%E6%97%B6%E9%97%B4%EF%BC%89%EF%BC%8C%E6%AF%94-set-%E6%9B%B4%E9%AB%98%E6%95%88%EF%BC%8C%E5%B0%A4%E5%85%B6%E6%98%AF%E5%9C%A8%E6%95%B0%E6%8D%AE%E9%87%8F%E5%A4%A7%E7%9A%84%E6%97%B6%E5%80%99%E3%80%82"><span class="toc-number">2.1.</span> <span class="toc-text">unordered_set 是 C++ 标准库中的一个容器，属于  头文件。unordered_set 是一种 哈希表 容器，它存储的是 不重复 的元素，并且基于哈希表实现。元素的存储顺序是不固定的，即它不保持插入顺序，因此叫做 “unordered”（无序的）集合。与 set 不同，unordered_set 是通过哈希算法来快速查找和插入元素，因此查找操作的平均时间复杂度为 O(1)（常数时间），比 set 更高效，尤其是在数据量大的时候。</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/12/19/getIntersectionNode/" title="160.相交链表"><img src="https://t.alcy.cc/fj?id=8" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="160.相交链表"/></a><div class="content"><a class="title" href="/2025/12/19/getIntersectionNode/" title="160.相交链表">160.相交链表</a><time datetime="2025-12-19T02:11:12.000Z" title="发表于 2025-12-19 10:11:12">2025-12-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/20/gitpush/" title="github中一些push方法学习"><img src="https://t.alcy.cc/fj?id=5" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="github中一些push方法学习"/></a><div class="content"><a class="title" href="/2025/11/20/gitpush/" title="github中一些push方法学习">github中一些push方法学习</a><time datetime="2025-11-20T12:53:13.755Z" title="发表于 2025-11-20 20:53:13">2025-11-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/05/30/myProject/" title="医院预约挂号系统"><img src="https://t.alcy.cc/fj?id=5" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="医院预约挂号系统"/></a><div class="content"><a class="title" href="/2025/05/30/myProject/" title="医院预约挂号系统">医院预约挂号系统</a><time datetime="2025-05-30T08:15:58.348Z" title="发表于 2025-05-30 16:15:58">2025-05-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/05/29/qq_img/" title="6行代码实现输入qq号获取qq头像"><img src="https://t.alcy.cc/fj?id=3" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="6行代码实现输入qq号获取qq头像"/></a><div class="content"><a class="title" href="/2025/05/29/qq_img/" title="6行代码实现输入qq号获取qq头像">6行代码实现输入qq号获取qq头像</a><time datetime="2025-05-29T06:26:50.079Z" title="发表于 2025-05-29 14:26:50">2025-05-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/05/19/newyear/" title="给猪猪媛的新春祝语"><img src="https://t.alcy.cc/fj?id=4" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="给猪猪媛的新春祝语"/></a><div class="content"><a class="title" href="/2025/05/19/newyear/" title="给猪猪媛的新春祝语">给猪猪媛的新春祝语</a><time datetime="2025-05-19T02:11:12.000Z" title="发表于 2025-05-19 10:11:12">2025-05-19</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent;"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2026 By C9</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.5</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: 'Ov23li3xKgCvXJrHhO3I',
+      clientSecret: '8b45b1d08a766853bb9a8cba0c2ee5f41bb93f5b',
+      repo: 'c9888.github.io',
+      owner: 'C9888',
+      admin: ['C9888'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || 'd6e7e9c52b8e0b4dacdf2a3c8e07d126'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><div class="aplayer no-destroy" data-id="60198" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="true"> </div><div class="aplayer no-destroy" data-id="60198" data-server="tencent" data-type="playlist" data-fixed="true" data-autoplay="true"> </div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="I,LOVE,YOU" data-fontsize="16px" data-random="false" async="async"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false 
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
